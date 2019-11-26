@@ -10,7 +10,8 @@ urlpatterns = [
     # path('grades/', views.grades),
     path('directors/', views.directors),
 
-    path('review/', views.review),
+    path('reviews/', views.reviews),
     path('<int:movie_id>/reviews/', views.create_reviews),
-    path('reviews/<int:review_id>/', views.reviews_detail)
+    path('reviews/<int:review_id>/', views.reviews_detail),
+    # path('<int:movie_id>/reviewswatch/', views.reviews_watch)
 ]

@@ -57,7 +57,7 @@ def movie_detail(request, movie_id):
 
 @api_view(['GET'])
 @permission_classes([AllowAny, ])
-def review(request):
+def reviews(request):
     reviews = Review.objects.all()
     serializer = TempReviewSerializer(reviews, many=True)
     return Response(serializer.data)
@@ -79,7 +79,19 @@ def create_reviews(request, movie_id):
 
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated,]) 
+# @authentication_classes([JSONWebTokenAuthentication,])
+# def reviews_watch(request, movie_id):
+#     movie = get_object_or_404(Movie, id=movie_id)
+#     serializer = MovieReviewSerializer(data=request.data)
+#     if request.method == 'GET':
+#         serializer = MovieReviewSerializer(movie)
+#         return JsonResponse(serializer.data)
+
+
+
+@api_view(['PUT', 'DELETE', 'PUT'])
 @permission_classes([IsAuthenticated,]) 
 @authentication_classes([JSONWebTokenAuthentication,])
 def reviews_detail(request, review_id):

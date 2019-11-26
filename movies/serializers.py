@@ -69,5 +69,12 @@ class TempReviewSerializer(serializers.ModelSerializer):
     review_user = TempUserSerializer()
     class Meta:
         model = Review
-        fields = ('comment', 'score', 'review_user', 'create_at',)
+        fields = ('id', 'comment', 'score', 'movie', 'review_user', 'create_at',)
 
+
+# class MovieReviewSerializer(serializers.ModelSerializer):
+#     review_set = ReviewSerializer()
+#     class Meta:
+#         model = Movie
+#         field = ('review_set', 'id', 'title', 'title_en', 'score', 'audience', 'poster_url', 
+#         'summary', 'movie_directors', 'video_url', 'ost_url', 'movie_genres', 'grade',)
