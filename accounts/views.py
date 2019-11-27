@@ -11,6 +11,7 @@ from rest_framework_jwt.settings import api_settings
 from django.contrib.auth import get_user_model
 from .serializers import UserSerializer, UserReviewSerializer
 
+
 @api_view(['GET'])
 @permission_classes([AllowAny, ])
 def users(request):
