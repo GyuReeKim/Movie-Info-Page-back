@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
-from .serializers import GenreSerializer, MovieSerializer, GradeSerializer, DirectorSerializer, ReviewSerializer, MovieDetailSerializer, TempReviewSerializer
+from .serializers import GenreSerializer, MovieSerializer, GradeSerializer, DirectorSerializer, ReviewSerializer, MovieDetailSerializer, TempReviewSerializer, MovieReviewSerializer
 from .models import Genre, Movie, Review, Director, Grade
 from rest_framework.response import Response
 
@@ -20,6 +20,7 @@ def grades(request):
     # return JsonResponse(serializer.data, safe=False)
 
 
+
 @api_view(['GET'])
 @permission_classes([AllowAny, ])
 def directors(request):
@@ -27,6 +28,7 @@ def directors(request):
     serializer = DirectorSerializer(directors, many=True)
     return Response(serializer.data)
     # return JsonResponse(serializer.data, safe=False)
+
 
 
 @api_view(['GET'])
@@ -38,6 +40,7 @@ def genres(request):
     # return JsonResponse(serializer.data, safe=False)
 
 
+
 @api_view(['GET'])
 @permission_classes([AllowAny, ])
 def movies(request):
@@ -45,6 +48,7 @@ def movies(request):
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
     # return JsonResponse(serializer.data, safe=False)
+
 
 
 @api_view(['GET'])
@@ -55,12 +59,16 @@ def movie_detail(request, movie_id):
     return Response(serializer.data)
 
 
-@api_view(['GET'])
-@permission_classes([AllowAny, ])
-def reviews(request):
-    reviews = Review.objects.all()
-    serializer = TempReviewSerializer(reviews, many=True)
-    return Response(serializer.data)
+
+
+
+
+# @api_view(['GET'])
+# @permission_classes([AllowAny, ])
+# def reviews(request):
+#     reviews = Review.objects.all()
+#     serializer = TempReviewSerializer(reviews, many=True)
+#     return Response(serializer.data)
     # return JsonResponse(serializer.data, safe=False)
 
 
@@ -76,8 +84,6 @@ def create_reviews(request, movie_id):
         # return Response({'message':"작성되었습니다."})
         return JsonResponse(serializer.data)
     return HttpResponse(status=400)
-
-
 
 
 @api_view(['PUT', 'DELETE', 'PUT'])
@@ -98,6 +104,26 @@ def reviews_detail(request, review_id):
     elif request.method == 'DELETE':
         review.delete()
         return Response({'message':"삭제되었습니다."})
+
+
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny, ])
+def movie_reviews(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    reviews = movie.review_set.all()
+    serializer = MovieReviewSerializer(reviews, many=True)
+    return Response(serializer.data)
+    # return JsonResponse(serializer.data, safe=False)
+
+
+
+
+
+
+
+
 
 
 
