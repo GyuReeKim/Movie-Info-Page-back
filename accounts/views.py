@@ -9,7 +9,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_jwt.settings import api_settings
 
 from django.contrib.auth import get_user_model
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserReviewSerializer
 
 @api_view(['GET'])
 @permission_classes([AllowAny, ])
@@ -34,6 +34,14 @@ def signup(request):
 
         return JsonResponse({'token': token})
     return HttpResponse(status=400)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny, ])
+def detail(request, id):
+    user = get_object_or_404(get_user_model(), id=id)
+    serializer = UserReviewSerializer(user)
+    return JsonResponse(serializer.data)
 
 
 # @api_view(['POST'])
