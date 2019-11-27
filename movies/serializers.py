@@ -6,7 +6,7 @@ from accounts.models import User
 class TempUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('__all__')
+        fields = ('username',)
 
 
 class TempGenreSerializer(serializers.ModelSerializer):
@@ -59,10 +59,12 @@ class MovieDetailSerializer(serializers.ModelSerializer):
          'summary', 'movie_directors', 'video_url', 'ost_url', 'movie_genres', 'grade',)
 
 
+# put, delete, put, post
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ('comment', 'score',)
+
 
 
 class TempReviewSerializer(serializers.ModelSerializer):
@@ -71,10 +73,9 @@ class TempReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = ('id', 'comment', 'score', 'movie', 'review_user', 'create_at',)
 
-
-# class MovieReviewSerializer(serializers.ModelSerializer):
-#     review_set = ReviewSerializer()
+# class TempReviewSerializer(serializers.ModelSerializer):
+#     # review_user = TempUserSerializer()
 #     class Meta:
-#         model = Movie
-#         field = ('review_set', 'id', 'title', 'title_en', 'score', 'audience', 'poster_url', 
-#         'summary', 'movie_directors', 'video_url', 'ost_url', 'movie_genres', 'grade',)
+#         model = Review
+#         fields = ('comment', 'score',)
+
