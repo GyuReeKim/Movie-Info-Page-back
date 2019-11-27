@@ -59,7 +59,7 @@ class MovieDetailSerializer(serializers.ModelSerializer):
          'summary', 'movie_directors', 'video_url', 'ost_url', 'movie_genres', 'grade',)
 
 
-# put, delete, put, post
+# delete, put, post
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review

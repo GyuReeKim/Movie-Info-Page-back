@@ -79,14 +79,15 @@ def movie_detail(request, movie_id):
 def create_reviews(request, movie_id):
     movie = get_object_or_404(Movie, id=movie_id)
     serializer = ReviewSerializer(data=request.data)
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(movie=movie, review_user=request.user)
-        # return Response({'message':"작성되었습니다."})
-        return JsonResponse(serializer.data)
+    if serializer.is_valid():
+        review = serializer.save(movie=movie, review_user=request.user)
+        serializer2 = MovieReviewSerializer(review)
+        return JsonResponse(serializer2.data)
     return HttpResponse(status=400)
 
 
-@api_view(['PUT', 'DELETE', 'PUT'])
+
+@api_view(['GET'])
 @permission_classes([IsAuthenticated,]) 
 @authentication_classes([JSONWebTokenAuthentication,])
 def reviews_detail(request, review_id):
@@ -95,7 +96,15 @@ def reviews_detail(request, review_id):
     if request.method == 'GET':
         serializer = ReviewSerializer(review)
         return JsonResponse(serializer.data)
-    elif request.method == 'PUT':
+
+
+@api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated,]) 
+@authentication_classes([JSONWebTokenAuthentication,])
+def reviews_detail(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    serializer = ReviewSerializer(data=request.data)
+    if request.method == 'PUT':
         serializer = ReviewSerializer(review, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -104,7 +113,6 @@ def reviews_detail(request, review_id):
     elif request.method == 'DELETE':
         review.delete()
         return Response({'message':"삭제되었습니다."})
-
 
 
 
