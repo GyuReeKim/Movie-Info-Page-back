@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
+# from pytz import timezone
 
 
 class Director(models.Model):
@@ -47,3 +48,8 @@ class Review(models.Model):
 
     def __str__(self):
         return "{} : {}".format(self.score, self.movie)
+    
+    # @property
+    # def created_at_korean_time(self):
+    #     korean_timezone = timezone(settings.TIME_ZONE)
+    #     return self.created_at.astimezone(korean_timezone)

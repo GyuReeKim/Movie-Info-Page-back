@@ -69,20 +69,22 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class TempReviewSerializer(serializers.ModelSerializer):
     review_user = TempUserSerializer()
+    # create_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
     class Meta:
         model = Review
         fields = ('id', 'comment', 'score', 'movie', 'review_user', 'create_at',)
 
 
-class TempReviewSerializer(serializers.ModelSerializer):
-    # review_user = TempUserSerializer()
-    class Meta:
-        model = Review
-        fields = ('comment', 'score',)
+# class TempReviewSerializer(serializers.ModelSerializer):
+#     # review_user = TempUserSerializer()
+#     class Meta:
+#         model = Review
+#         fields = ('comment', 'score',)
 
 
 class MovieReviewSerializer(serializers.ModelSerializer):
     review_user = TempUserSerializer()
+    create_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
     class Meta:
         model = Review
         fields = ('__all__')
